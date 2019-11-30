@@ -70,7 +70,7 @@ jobs:
             - ~/build-temp
       - run:
           name: install npm packages
-          command: meteor ci
+          command: meteor npm ci
       - save_cache:
           key: npm-packages-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}-{{ checksum ".circleci/config.yml" }}
           paths:
