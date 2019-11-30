@@ -1,6 +1,4 @@
-services:
-  - name: node:8.15.1
-  - name: cypress/browsers:chrome65-ff57
+image: cypress/base:10
 
 job:
   before_script:
