@@ -33,8 +33,7 @@ install:
     # show all installed versions of Cypress binary
     - $(meteor npm bin)/cypress cache list
     - $(meteor npm bin)/cypress verify
-    - meteor npm run start:test
-    - kill -9 `ps ax | grep node | grep meteor | awk '{print $1}'`
+    - meteor npm run start:kill
 
 # two jobs that run after "install" job finishes
 # NPM dependencies and Cypress binary should be already installed

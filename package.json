@@ -10,7 +10,9 @@
     "cypress:start": "cypress open",
     "cypress:run": "cypress run",
     "test:blackbox": "start-server-and-test start:test http://localhost:5000 cypress:start",
-    "test:blackbox:headless": "start-server-and-test start:test http://localhost:5000 cypress:run"
+    "test:blackbox:headless": "start-server-and-test start:test http://localhost:5000 cypress:run",
+    "kill": "kill -9 `ps ax | grep node | grep meteor | awk '{print $1}'`",
+    "start:kill": "start-server-and-test start:test http://localhost:5000 kill"
   },
   "dependencies": {
     "@babel/runtime": "^7.6.0",
