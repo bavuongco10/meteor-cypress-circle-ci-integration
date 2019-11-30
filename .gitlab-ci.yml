@@ -32,6 +32,7 @@ install:
     # show all installed versions of Cypress binary
     - $(meteor npm bin)/cypress cache list
     - $(meteor npm bin)/cypress verify
+    - meteor
 
 # two jobs that run after "install" job finishes
 # NPM dependencies and Cypress binary should be already installed
@@ -40,6 +41,7 @@ cypress-e2e:
   stage: test
   before_script:
     - command -v meteor >/dev/null 2>&1 || curl https://install.meteor.com | /bin/sh
+    - meteor --allow-superuser --version
   script:
       - meteor npm run test:blackbox:headless
 
