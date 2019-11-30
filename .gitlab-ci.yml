@@ -16,6 +16,7 @@ cache:
     - cache/Cypress
     - node_modules
     - .meteor/local
+    - /usr/local/bin/meteor
 
 # this job installs NPM dependencies and Cypress
 install:
@@ -25,7 +26,6 @@ install:
   script:
     # only install meteor if bin isn't found
     - command -v meteor >/dev/null 2>&1 || curl https://install.meteor.com | /bin/sh
-    - which meteor
     # install npm packages
     - meteor npm ci
     # show where the Cypress test runner binaries are cached
@@ -39,6 +39,8 @@ install:
 cypress-e2e:
   image: cypress/base:10
   stage: test
+  before_script:
+    - command -v meteor >/dev/null 2>&1 || curl https://install.meteor.com | /bin/sh
   script:
       - meteor npm run test:blackbox:headless
 
