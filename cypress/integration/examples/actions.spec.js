@@ -9,5 +9,6 @@ context('Example', () => {
   it('have title', () => {
     cy.title().should('eq', 'meteor-cypress-circle-ci-integration');
     cy.get('#react-target').contains('Learn Meteor!');
+    expect('hello').to.equal('hello');
   })
 });
