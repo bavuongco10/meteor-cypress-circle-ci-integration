@@ -16,6 +16,7 @@ cache:
     - cache/Cypress
     - node_modules
     - .meteor/local
+    - ~/.meteor
 
 # this job installs NPM dependencies and Cypress
 install:
@@ -32,7 +33,8 @@ install:
     # show all installed versions of Cypress binary
     - $(meteor npm bin)/cypress cache list
     - $(meteor npm bin)/cypress verify
-    - meteor --allow-superuser
+    - meteor npm run start:test
+    - kill -9 `ps ax | grep node | grep meteor | awk '{print $1}'`
 
 # two jobs that run after "install" job finishes
 # NPM dependencies and Cypress binary should be already installed
