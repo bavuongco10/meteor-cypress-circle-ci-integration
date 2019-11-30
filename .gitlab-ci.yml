@@ -42,11 +42,11 @@ cypress-e2e:
   script:
       - meteor npm run test:blackbox:headless
 
-  artifacts:
-    expire_in: 1 week
-    when: always
-    paths:
-      - cypress/screenshots
-      - cypress/videos
+#  artifacts:
+#    expire_in: 1 week
+#    when: always
+#    paths:
+#      - cypress/screenshots
+#      - cypress/videos
 
 
