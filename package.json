@@ -6,7 +6,7 @@
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
-    "start:test": "meteor --port 5000",
+    "start:test": "meteor --allow-superuser --port 5000",
     "cypress:start": "cypress open",
     "cypress:run": "cypress run",
     "test:blackbox": "start-server-and-test start:test http://localhost:5000 cypress:start",
