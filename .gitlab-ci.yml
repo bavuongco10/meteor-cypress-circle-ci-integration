@@ -1,0 +1,14 @@
+image: node:8.15.1
+
+services:
+  - name: cypress/browsers:chrome65-ff57
+
+job:
+  before_script:
+    # only install meteor if bin isn't found
+    - command -v meteor >/dev/null 2>&1 || curl https://install.meteor.com | /bin/sh
+    # install npm packages
+    - meteor npm ci
+
+  script:
+    - meteor npm run test:blackbox:headless
