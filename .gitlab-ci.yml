@@ -1,6 +1,5 @@
-image: node:8.15.1
-
 services:
+  - name: node:8.15.1
   - name: cypress/browsers:chrome65-ff57
 
 job:
@@ -9,7 +8,6 @@ job:
     - command -v meteor >/dev/null 2>&1 || curl https://install.meteor.com | /bin/sh
     # install npm packages
     - meteor npm ci
-    - apt-get install --fix-missing -y xvfb
 
   script:
     - meteor npm run test:blackbox:headless
