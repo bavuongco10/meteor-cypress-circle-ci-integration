@@ -16,6 +16,7 @@ cache:
     - cache/Cypress
     - node_modules
     - .meteor/local
+    - /usr/local/bin/meteor
 
 # this job installs NPM dependencies and Cypress
 install:
