@@ -9,6 +9,7 @@ job:
     - command -v meteor >/dev/null 2>&1 || curl https://install.meteor.com | /bin/sh
     # install npm packages
     - meteor npm ci
+    - apt-get install --fix-missing -y xvfb
 
   script:
     - meteor npm run test:blackbox:headless
