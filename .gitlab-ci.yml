@@ -32,7 +32,7 @@ install:
     # show all installed versions of Cypress binary
     - $(meteor npm bin)/cypress cache list
     - $(meteor npm bin)/cypress verify
-    - meteor
+    - meteor --allow-superuser
 
 # two jobs that run after "install" job finishes
 # NPM dependencies and Cypress binary should be already installed
