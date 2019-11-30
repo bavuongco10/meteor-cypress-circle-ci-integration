@@ -70,12 +70,12 @@ jobs:
             - ~/build-temp
       - run:
           name: install npm packages
-          command: meteor npm i
+          command: meteor ci
       - save_cache:
           key: npm-packages-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}-{{ checksum ".circleci/config.yml" }}
           paths:
-            - ./node_modules/
-            - ~/.npm/
+            - ~/.cache
+            - ~/.npm
       - run:
           name: start app and run E2E tests
           command: meteor npm run test:blackbox:headless
