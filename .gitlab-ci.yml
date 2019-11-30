@@ -30,7 +30,7 @@ install:
     - command -v meteor >/dev/null 2>&1 || curl https://install.meteor.com | /bin/sh
     - mkdir -p ~/build-temp
     - cp /usr/local/bin/meteor ~/build-temp/meteor-bin
-    - meteor --allow-superuser
+    - meteor --allow-superuser --version
     # install npm packages
     - meteor npm ci
     # show where the Cypress test runner binaries are cached
