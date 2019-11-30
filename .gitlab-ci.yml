@@ -26,6 +26,7 @@ install:
   script:
     # only install meteor if bin isn't found
     - command -v meteor >/dev/null 2>&1 || curl https://install.meteor.com | /bin/sh
+    - which meteor
     # install npm packages
     - meteor npm ci
     # show where the Cypress test runner binaries are cached
