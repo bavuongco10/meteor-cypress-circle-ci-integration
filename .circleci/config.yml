@@ -1,0 +1,58 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    working_directory: ~/app
+
+    docker:
+      - image: circleci/openjdk:8-jdk-browsers
+        environment:
+          # lang settings required for Meteor's Mongo
+          LANG: C.UTF-8
+          LANGUAGE: C.UTF-8
+          LC_ALL: C.UTF-8
+          LC_NUMERIC: en_US.UTF-8
+          #   METEOR_BIN_TMP_DIR: /home/circleci/build-temp/
+          #   METEOR_BIN_TMP_FILE: meteor-bin-temp
+      - image: cypress/browsers:chrome65-ff57
+        environment:
+          ## this enables colors in the output
+          TERM: xterm
+    steps:
+      - checkout
+      - restore_cache:
+          key: npm-packages-{{ checksum "package.json" }}
+      - run:
+          name: install Meteor
+          command: |
+            # only install meteor if bin isn't found
+            command -v meteor >/dev/null 2>&1 || curl https://install.meteor.com | /bin/sh
+      - run:
+          name: check versions
+          command: |
+            echo "Meteor version:"
+            # this forces Meteor to download whatever release your project is using
+            meteor --version
+            which meteor
+            echo "Meteor node version:"
+            meteor node -v
+            echo "Meteor npm version:"
+            meteor npm -v
+            echo "Java version:"
+            java -version
+      - run:
+          name: install npm packages
+          command: meteor npm i
+      - run:
+          name: start app and run E2E tests
+          command: meteor npm run test:blackbox:headless
+          no_output_timeout: 5m
+      - save_cache:
+          key: npm-packages-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules/
+      - store_artifacts:
+          path: ./cypress/screenshots
