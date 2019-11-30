@@ -1,0 +1,32 @@
+{
+  "name": "meteor-cypress-circle-ci-integration",
+  "private": true,
+  "scripts": {
+    "start": "meteor run",
+    "test": "meteor test --once --driver-package meteortesting:mocha",
+    "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
+    "visualize": "meteor --production --extra-packages bundle-visualizer",
+    "start:test": "meteor --port 5000",
+    "cypress:start": "cypress open",
+    "cypress:run": "cypress run",
+    "test:blackbox": "start-server-and-test start:test http://localhost:5000 cypress:start",
+    "test:blackbox:headless": "start-server-and-test start:test http://localhost:5000 cypress:run"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.6.0",
+    "meteor-node-stubs": "^1.0.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  },
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.jsx",
+      "server": "server/main.js"
+    },
+    "testModule": "tests/main.js"
+  },
+  "devDependencies": {
+    "cypress": "^3.7.0",
+    "start-server-and-test": "^1.10.6"
+  }
+}
