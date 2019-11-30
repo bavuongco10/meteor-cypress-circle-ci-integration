@@ -1,11 +1,52 @@
-image: cypress/base:10
+# first, install Cypress, then run all tests (in parallel)
+stages:
+  - build
+  - test
 
-job:
-  before_script:
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  CYPRESS_CACHE_FOLDER: "$CI_PROJECT_DIR/cache/Cypress"
+
+# cache using branch name
+# https://gitlab.com/help/ci/caching/index.md
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm
+    - cache/Cypress
+    - node_modules
+    - .meteor/local
+    - /usr/local/bin/meteor
+
+# this job installs NPM dependencies and Cypress
+install:
+  image: cypress/base:10
+  stage: build
+
+  script:
     # only install meteor if bin isn't found
     - command -v meteor >/dev/null 2>&1 || curl https://install.meteor.com | /bin/sh
     # install npm packages
     - meteor npm ci
+    # show where the Cypress test runner binaries are cached
+    - $(meteor npm bin)/cypress cache path
+    # show all installed versions of Cypress binary
+    - $(meteor npm bin)/cypress cache list
+    - $(meteor npm bin)/cypress verify
 
+# two jobs that run after "install" job finishes
+# NPM dependencies and Cypress binary should be already installed
+cypress-e2e:
+  image: cypress/base:10
+  stage: test
   script:
-    - meteor npm run test:blackbox:headless
+      - meteor npm run test:blackbox:headless
+
+  artifacts:
+    expire_in: 1 week
+    when: always
+    paths:
+      - cypress/screenshots
+      - cypress/videos
+
+
