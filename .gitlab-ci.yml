@@ -16,8 +16,6 @@ cache:
     - cache/Cypress
     - node_modules
     - .meteor/local
-    - /usr/local/bin/meteor
-    - ~/build-temp
 
 # this job installs NPM dependencies and Cypress
 install:
@@ -25,11 +23,7 @@ install:
   stage: build
 
   script:
-    - if [ -e ~/build-temp/meteor-bin ]; then sudo cp ~/build-temp/meteor-bin /usr/local/bin/meteor; else echo "No cached Meteor bin found."; fi
-    # only install meteor if bin isn't found
     - command -v meteor >/dev/null 2>&1 || curl https://install.meteor.com | /bin/sh
-    - mkdir -p ~/build-temp
-    - cp /usr/local/bin/meteor ~/build-temp/meteor-bin
     - meteor --allow-superuser --version
     # install npm packages
     - meteor npm ci
