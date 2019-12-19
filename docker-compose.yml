@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  meteor-cypress-circle-ci-integration:
+    image: meteor-cypress-circle-ci-integration
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
